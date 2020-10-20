@@ -34,8 +34,8 @@ const OrphanagesMap = () => {
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         initialRegion={{
-          latitude: -23.6291906,
-          longitude: -46.5062054,
+          latitude: -23.6285829,
+          longitude: -46.5064266,
           latitudeDelta: 0.008,
           longitudeDelta: 0.008
         }}

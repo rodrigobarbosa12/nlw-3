@@ -22,8 +22,8 @@ const SelectMapPosition = () => {
     <View style={styles.container}>
       <MapView
         initialRegion={{
-          latitude: -27.2092052,
-          longitude: -49.6401092,
+          latitude: -23.6285829,
+          longitude: -46.5064266,
           latitudeDelta: 0.008,
           longitudeDelta: 0.008,
         }}
