@@ -3,8 +3,8 @@ import { ScrollView, View, StyleSheet, Switch, Text, TextInput, TouchableOpacity
 import { Feather } from '@expo/vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation, useRoute } from '@react-navigation/native';
-// import * as ImagePicker from 'expo-image-picker';
-// import api from '../../services/api';
+import * as ImagePicker from 'expo-image-picker';
+import api from '../../utils/api';
 
 interface OrphanageDataRouteParams {
   position: {
@@ -14,7 +14,6 @@ interface OrphanageDataRouteParams {
 }
 
 export default function OrphanageData() {
-  console.warn('Oii');
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
   const [instructions, setInstructions] = useState('');
@@ -49,6 +48,7 @@ export default function OrphanageData() {
     data.append('opening_hours', opening_hours);
     data.append('open_on_weekends', String(open_on_weekends));
 
+    // UPLOAD DE IMAGENS
     images.forEach((image, index) => {
       data.append('images', {
         name: `image_${index}.jpg`,
@@ -57,31 +57,31 @@ export default function OrphanageData() {
       } as any);
     });
 
-    // await api.post('orphanages', data);
+    await api.createOrphanages(data);
 
     navigation.navigate('OrphanagesMap');
   }
 
   async function handleSelectImages() {
-    // const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+    const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
 
-    // if (status !== 'granted') {
-    //   alert('Eita, precisamos de acesso às suas fotos!');
-    //   return;
-    // }
+    if (status !== 'granted') {
+      alert('Eita, precisamos de acesso às suas fotos!');
+      return;
+    }
 
-    // const result = await ImagePicker.launchImageLibraryAsync({
-    //   allowsEditing: true,
-    //   quality: 1,
-    //   mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    // });
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images, // apenas imagens e não videos
+    });
 
-    // if (result.cancelled) {
-    //   return;
-    // }
+    if (result.cancelled) {
+      return;
+    }
 
-    // const { uri: image } = result;
-    // setImages([...images, image]);
+    const { uri: image } = result;
+    setImages([...images, image]);
   }
 
   return (

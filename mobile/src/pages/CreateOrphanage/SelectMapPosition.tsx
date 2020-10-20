@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
-
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 import MapView, { MapEvent, Marker } from 'react-native-maps';
 
 import mapMarkerImg from '../../images/map-marker.png';
 
-export default function SelectMapPosition() {
+const SelectMapPosition = () => {
   const navigation = useNavigation();
   const [position, setPosition] = useState({ latitude: 0, longitude: 0});
 
@@ -45,8 +44,8 @@ export default function SelectMapPosition() {
         </RectButton>
       )}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -77,4 +76,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFF',
   }
-})
+});
+
+export default SelectMapPosition;
